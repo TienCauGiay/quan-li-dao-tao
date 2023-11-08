@@ -1,0 +1,92 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<quan_li_dao_tao.Models.users>
+
+@{
+    ViewBag.Title = "SearchUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 animated bounceInRight">
+                <h1 class="m-0"><span class="fa fa-people-arrows"></span> Danh sách sinh viên</h1>
+            </div>
+            <div class="col-sm-6">
+                @using (Html.BeginForm("SearchUser", "Admin", FormMethod.Post))
+                {
+                    <input type="search" id="searchUser" name="searchUser" class="form-control" value="@ViewBag.SearchUser" placeholder="Tìm kiếm tài khoản..." aria-controls="example1">
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body animated pulse">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tài khoản</th>
+                        <th>Mật khẩu</th>
+                        <th>Chức vụ</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.user_name</td>
+                                <td>@item.pass_word</td>
+                                @if (item.role_id == "admin")
+                                {
+                                    <td>Quản trị viên</td>
+                                }
+                                else if (item.role_id == "teacher")
+                                {
+                                    <td>Giảng viên</td>
+                                }
+                                else
+                                {
+                                    <td>Sinh viên</td>
+                                }
+                                @if (item.status == 1)
+                                {
+                                    <td>Hoạt động</td>
+                                }
+                                else
+                                {
+                                    <td>Không hoạt động</td>
+                                }
+                                <td class="text-right">
+                                    <a class="btn btn-sm btn-success" href="@Url.Action("UpdateUser", "Admin", new { id = item.user_name})">
+                                        <i class="fa fa-pen"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" href="@Url.Action("DeleteUser", "Admin", new { id = item.user_name})" data-toggle="modal"
+                                       data-target="#delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("ManageUser", new { page, @searchUser = ViewBag.SearchUser }), new PagedListRenderOptions
+                       {
+                           UlElementClasses = new[] { "pagination" }
+                       })
+        </div>
+    </div>
+</section>
+
+

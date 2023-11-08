@@ -1,0 +1,49 @@
+﻿@model List<quan_li_dao_tao.Models.register_subject>
+
+@{
+    ViewBag.Title = "Schedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 animated bounceInRight">
+                <h1 class="m-0"><span class="fa fa-book"></span> Lịch giảng dạy</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body animated pulse">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên môn học</th>
+                        <th>Thời gian dạy</th>
+                        <th>Phòng học</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.subject_name</td>
+
+                                <td>@item.time_learning</td>
+
+                                <td>@item.address_learn</td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+

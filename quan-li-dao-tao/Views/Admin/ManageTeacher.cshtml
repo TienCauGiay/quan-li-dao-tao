@@ -1,0 +1,95 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<quan_li_dao_tao.Models.teacher>
+
+@{
+    ViewBag.Title = "ManageTeacher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["AlertMessage"]
+    </div>
+}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 animated bounceInRight">
+                <h1 class="m-0"><span class="fa fa-chalkboard-teacher"></span> Danh sách giảng viên</h1>
+            </div>
+            <div class="col-sm-6">
+                @using (Html.BeginForm("SearchTeacher", "Admin", FormMethod.Post))
+                {
+                    <input type="search" id="searchTeacher" name="searchTeacher" class="form-control" placeholder="Tìm kiếm giảng viên..." aria-controls="example1">
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body animated pulse">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Ảnh đại diện</th>
+                        <th>Thông tin giảng viên</th>
+                        <th>Giới tính</th>
+                        <th>Ngày sinh</th>
+                        <th>Khoa giảng dạy</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                @if (item.image == null)
+                                {
+                                    <td><img src="~/assets/img/profile.png" width="100" alt="Ảnh đại diện"> <br /> ID: @item.teacher_id</td>
+                                }
+                                else
+                                {
+                                    <td><img src="~/assets/img/teacher/@item.image" width="100" alt="Ảnh đại diện"> <br /> ID: @item.teacher_id</td>
+                                }
+                                <td>
+                                    <p class="info">Họ tên: <b>@item.teacher_name</b></p>
+                                    <p class="info"><small>Điện thoại: <b>@item.phone_number</b></small></p>
+                                    <p class="info"><small>Địa chỉ: <b>@item.address</b></small></p>
+                                    <p class="info"><small>Email: <b>@item.email</b></small></p>
+                                </td>
+                                <td>@item.gender</td>
+                                <td>@(item.birthday.HasValue ? item.birthday.Value.ToString("dd/MM/yyyy") : "Trống")</td>
+                                <td>@item.FACULTY.faculty_name</td>
+                                <td class="text-right">
+                                    <a class="btn btn-sm btn-success" href="@Url.Action("UpdateTeacher", "Admin", new { id = item.teacher_id})">
+                                        <i class="fa fa-pen"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" href="@Url.Action("DeleteTeacher", "Admin", new { id = item.teacher_id})" data-toggle="modal"
+                                       data-target="#delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("ManageTeacher", new { page }), new PagedListRenderOptions
+                       {
+                           UlElementClasses = new[] { "pagination" }
+                       })
+        </div>
+    </div>
+</section>
+

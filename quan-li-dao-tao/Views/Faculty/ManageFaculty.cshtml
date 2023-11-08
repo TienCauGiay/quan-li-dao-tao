@@ -1,0 +1,60 @@
+﻿@model List<quan_li_dao_tao.Models.faculty>
+@{
+    ViewBag.Title = "ManageFaculty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["AlertMessage"]
+    </div>
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 animated bounceInRight">
+                <h1 class="m-0"><span class="fa fa-plane-departure"></span> Danh sách khoa đào tạo</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body animated pulse">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Mã khoa</th>
+                        <th>Tên khoa</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.faculty_id</td>
+                                <td>@item.faculty_name</td>
+                                <td class="text-right">
+                                    <a class="btn btn-sm btn-success" href="@Url.Action("UpdateFaculty", "Faculty", new {id = item.faculty_id})">
+                                        <i class="fa fa-pen"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" href="@Url.Action("DeleteFaculty", "Faculty", new {id = item.faculty_id})" data-toggle="modal"
+                                       data-target="#delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->

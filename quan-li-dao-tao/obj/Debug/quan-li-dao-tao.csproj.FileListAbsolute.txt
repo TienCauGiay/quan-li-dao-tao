@@ -104,3 +104,14 @@ F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\System.Text.Enc
 F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\System.Text.Json.xml
 F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\System.Threading.Tasks.Extensions.xml
 F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\System.ValueTuple.xml
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\EPPlus.dll
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\EPPlus.Interfaces.dll
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\EPPlus.System.Drawing.dll
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\Microsoft.IO.RecyclableMemoryStream.dll
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\PagedList.dll
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\PagedList.Mvc.dll
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\System.ComponentModel.Annotations.dll
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\EPPlus.xml
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\Microsoft.IO.RecyclableMemoryStream.xml
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\PagedList.xml
+F:\DHGTVT\Cong_Nghe_Phan_Mem\quan-li-dao-tao\quan-li-dao-tao\bin\PagedList.Mvc.xml

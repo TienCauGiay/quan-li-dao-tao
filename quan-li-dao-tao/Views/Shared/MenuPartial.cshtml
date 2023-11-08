@@ -1,0 +1,237 @@
+﻿
+@{
+    quan_li_dao_tao.Models.users user = (quan_li_dao_tao.Models.users)Session["User"];
+}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: rgba(62,88,113);">
+    <!-- Brand Logo -->
+    @if (user.role_id == "admin")
+    {
+        <a href="@Url.Action("Index", "Admin")" class="brand-link animated swing">
+            <img src="~/assets/img/logo1.png" alt="DSMS Logo" width="200">
+        </a>
+    }
+    @if (user.role_id == "teacher")
+    {
+        <a href="@Url.Action("Index", "Teacher")" class="brand-link animated swing">
+            <img src="~/assets/img/logo1.png" alt="DSMS Logo" width="200">
+        </a>
+    }
+    @if (user.role_id == "student")
+    {
+        <a href="@Url.Action("Index", "Student")" class="brand-link animated swing">
+            <img src="~/assets/img/logo1.png" alt="DSMS Logo" width="200">
+        </a>
+    }
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="~/assets/img/avatar.jpg" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">@user.user_name</a>
+            </div>
+        </div>
+        <!-- Sidebar Menu -->
+        @if (user.role_id == "admin")
+        {
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item animated bounceInLeft">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-plane-departure"></i>
+                            <p>
+                                Faculty
+                            </p>
+                            <i class="right fas fa-angle-left"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("AddFaculty", "Faculty")" class="nav-link">
+                                    <i class="nav-icon fa fa-plus"></i>
+                                    <p>Add</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("ManageFaculty", "Faculty")" class="nav-link">
+                                    <i class="nav-icon fa fa-list"></i>
+                                    <p>Manage</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item animated bounceInLeft">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                            <p>
+                                Teacher
+                            </p>
+                            <i class="right fas fa-angle-left"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("AddTeacher", "Admin")" class="nav-link">
+                                    <i class="nav-icon fa fa-plus"></i>
+                                    <p>Add</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("ManageTeacher", "Admin")" class="nav-link">
+                                    <i class="nav-icon fa fa-list"></i>
+                                    <p>Manage</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item animated bounceInLeft">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-people-arrows"></i>
+                            <p>
+                                Student
+                            </p>
+                            <i class="right fas fa-angle-left"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("AddStudent", "Admin")" class="nav-link">
+                                    <i class="nav-icon fa fa-plus"></i>
+                                    <p>Add</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="@Url.Action("ManageStudent", "Admin")" class="nav-link">
+                                    <i class="nav-icon fa fa-list"></i>
+                                    <p>Manage</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item animated bounceInLeft">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                User
+                            </p>
+                            <i class="right fas fa-angle-left"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("ManageUser", "Admin")" class="nav-link">
+                                    <i class="nav-icon fa fa-list"></i>
+                                    <p>Manage</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item animated bounceInLeft">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Schedule
+                            </p>
+                            <i class="right fas fa-angle-left"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="@Url.Action("SetupSchedule", "Admin")" class="nav-link">
+                                    <i class="nav-icon fa fa-book"></i>
+                                    <p>Manage</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        }
+        @if (user.role_id == "teacher")
+        {
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href="@Url.Action("Student", "Teacher")" class="nav-link">
+                            <i class="nav-icon fa fa-people-arrows"></i>
+                            <p>
+                                Student
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Score", "Teacher")" class="nav-link">
+                            <i class="nav-icon fa fa-paint-brush"></i>
+                            <p>
+                                Score
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Schedule", "Teacher")" class="nav-link">
+                            <i class="nav-icon fa fa-book"></i>
+                            <p>
+                                Schedule
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("ChangePassword", "Teacher")" class="nav-link">
+                            <i class="nav-icon fa fa-user-check"></i>
+                            <p>
+                                User
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        }
+        @if (user.role_id == "student")
+        {
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "Student")" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                My Profile
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Score", "Student")" class="nav-link">
+                            <i class="nav-icon fa fa-paint-brush"></i>
+                            <p>
+                                Score
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Register", "Student")" class="nav-link">
+                            <i class="nav-icon fa fa-registered"></i>
+                            <p>
+                                Register
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Schedule", "Student")" class="nav-link">
+                            <i class="nav-icon fa fa-book"></i>
+                            <p>
+                                Schedule
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("ChangePassword", "Student")" class="nav-link">
+                            <i class="nav-icon fa fa-user-check"></i>
+                            <p>
+                                User
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        }
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

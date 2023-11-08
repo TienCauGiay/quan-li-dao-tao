@@ -30,7 +30,7 @@ namespace quan_li_dao_tao.Models
         [StringLength(100)]
         public string teacher_name { get; set; }
 
-        public bool? status { get; set; }
+        public int? status { get; set; }
 
         public virtual student STUDENT { get; set; }
     }

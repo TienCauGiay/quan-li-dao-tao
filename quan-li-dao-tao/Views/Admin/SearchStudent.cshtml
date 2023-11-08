@@ -1,0 +1,89 @@
+﻿
+@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<quan_li_dao_tao.Models.student>
+
+@{
+    ViewBag.Title = "SearchStudent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6 animated bounceInRight">
+                <h1 class="m-0"><span class="fa fa-chalkboard-teacher"></span> Danh sách giảng viên</h1>
+            </div>
+            <div class="col-sm-6">
+                @using (Html.BeginForm("SearchStudent", "Admin", FormMethod.Post))
+                {
+                    <input type="search" id="searchStudent" name="searchStudent" class="form-control" placeholder="Tìm kiếm sinh viên..." value="@ViewBag.SearchStudent" aria-controls="example1">
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body animated pulse">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Ảnh đại diện</th>
+                        <th>Thông tin sinh viên</th>
+                        <th>Giới tính</th>
+                        <th>Ngày sinh</th>
+                        <th>Lớp theo học</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                @if (item.image == null)
+                                {
+                                    <td><img src="~/assets/img/profile.png" width="100" alt="Ảnh đại diện"> <br /> ID: @item.student_id</td>
+                                }
+                                else
+                                {
+                                    <td><img src="~/assets/img/student/@item.image" width="100" alt="Ảnh đại diện"> <br /> ID: @item.student_id</td>
+                                }
+                                <td>
+                                    <p class="info">Họ tên: <b>@item.student_name</b></p>
+                                    <p class="info"><small>Điện thoại: <b>@item.phone_number</b></small></p>
+                                    <p class="info"><small>Địa chỉ: <b>@item.address</b></small></p>
+                                    <p class="info"><small>Email: <b>@item.email</b></small></p>
+                                    <p class="info"><small>Ngày nhập học: <b>@(item.year_admission.HasValue ? item.year_admission.Value.ToString("dd/MM/yyyy"): "Trống")</b></small></p>
+                                </td>
+                                <td>@item.gender</td>
+                                <td>@(item.birthday.HasValue ? item.birthday.Value.ToString("dd/MM/yyyy") : "Trống")</td>
+                                <td>@item.CLASS.classes_name</td>
+                                <td class="text-right">
+                                    <a class="btn btn-sm btn-success" href="@Url.Action("UpdateStudent", "Admin", new { id = item.student_id})">
+                                        <i class="fa fa-pen"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" href="@Url.Action("DeleteStudent", "Admin", new { id = item.student_id})" data-toggle="modal"
+                                       data-target="#delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("SearchStudent", new { page, @searchStudent = ViewBag.SearchStudent }), new PagedListRenderOptions
+                       {
+                           UlElementClasses = new[] { "pagination" }
+                       })
+        </div>
+    </div>
+</section>
+

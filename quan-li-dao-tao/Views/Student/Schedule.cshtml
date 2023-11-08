@@ -1,0 +1,67 @@
+﻿@model List<quan_li_dao_tao.Models.register_subject>
+
+@{
+    ViewBag.Title = "Schedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["AlertMessage"]
+    </div>
+}
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 animated bounceInRight">
+                <h1 class="m-0"><span class="fa fa-list"></span> Danh sách các môn học đã đăng ký</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body animated pulse">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên môn học</th>
+                        <th>Thời gian học</th>
+                        <th>Phòng học</th>
+                        <th>Giảng viên</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.subject_name</td>
+
+                                <td>@item.time_learning</td>
+
+                                <td>@item.address_learn</td>
+
+                                <td>@item.teacher_name</td>
+                                @if (item.status == 1)
+                                {
+                                    <td>Đã xác nhận</td>
+                                }
+                                else
+                                {
+                                    <td>Chưa xác nhận</td>
+                                }
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
