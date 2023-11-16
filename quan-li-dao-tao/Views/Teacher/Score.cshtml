@@ -21,7 +21,7 @@
                 <h1 class="m-0"><span class="fa fa-people-arrows"></span> Quản lí điểm sinh viên</h1>
             </div>
             <div class="col-sm-6">
-                @using (Html.BeginForm("InputScore", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                @using (Html.BeginForm("ImportScore", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <div style="display:flex;" class="col-sm-12">
                         <label style="margin-top:5px; margin-right:20px;">Nhập điểm: </label>

@@ -111,7 +111,7 @@ namespace quan_li_dao_tao.Controllers
         }
 
         [HttpPost]
-        public ActionResult InputScore(HttpPostedFileBase excelFile)
+        public ActionResult ImportScore(HttpPostedFileBase excelFile)
         {
             if (excelFile == null || excelFile.ContentLength == 0)
             {
@@ -126,15 +126,17 @@ namespace quan_li_dao_tao.Controllers
             }
 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            // Đọc dữ liệu từ file Excel và lưu vào cơ sở dữ liệu
+
             using (var package = new ExcelPackage(excelFile.InputStream))
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-                if (worksheet != null)
+                try
                 {
-                    try
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+                    if (worksheet != null)
                     {
                         int rowCount = worksheet.Dimension.Rows;
+
                         for (int row = 2; row <= rowCount; row++)
                         {
                             string studentId = worksheet.Cells[row, 1].Value?.ToString();
@@ -144,7 +146,6 @@ namespace quan_li_dao_tao.Controllers
                             double diemThi = double.Parse(worksheet.Cells[row, 5].Value?.ToString());
                             double diemTB = double.Parse(worksheet.Cells[row, 6].Value?.ToString());
 
-                            // Lưu điểm của sinh viên vào cơ sở dữ liệu
                             var score = new score
                             {
                                 student_id = studentId,
@@ -154,15 +155,19 @@ namespace quan_li_dao_tao.Controllers
                                 score_test = diemThi,
                                 score_tb = diemTB
                             };
+                            // Thêm các bản ghi vào danh sách tracking (theo dõi) của entity framework
                             _context.SCOREs.Add(score);
-                            _context.SaveChanges();
                         }
+
+                        _context.SaveChanges();
+                        transaction.Commit();
                     }
-                    catch (Exception ex)
-                    {
-                        TempData["AlertMessage"] = "Nhập điểm sinh viên không thành công, vui lòng kiểm tra lại file excel";
-                        return RedirectToAction("Score");
-                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["AlertMessage"] = "Nhập điểm sinh viên không thành công, vui lòng kiểm tra lại file excel";
+                    return RedirectToAction("Score");
                 }
             }
 
